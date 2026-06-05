@@ -1,10 +1,13 @@
 // chrome.jsx — Header + Footer
-const { useI18n, GH_ORG } = window;
+import React from 'react';
+import { useI18n, LANGS, richText } from './i18n.jsx';
+import { GitHubIcon, MenuIcon, Button, BookIcon } from './ui.jsx';
+import { GH_ORG } from './data.jsx';
 
 function LangSwitch() {
   const { lang, setLang } = useI18n();
   return React.createElement("div", { className: "lang", role: "group", "aria-label": "Language" },
-    window.LANGS.map((l) =>
+    LANGS.map((l) =>
       React.createElement("button", {
         key: l,
         className: lang === l ? "active" : "",
@@ -16,7 +19,7 @@ function LangSwitch() {
 }
 
 // nav links: section anchors only valid on home; on docs they route home then scroll
-function Header({ route, navigate }) {
+export function Header({ route, navigate }) {
   const { t } = useI18n();
   const [open, setOpen] = React.useState(false);
   const [scrolled, setScrolled] = React.useState(false);
@@ -54,31 +57,31 @@ function Header({ route, navigate }) {
         ),
         React.createElement("nav", { className: "nav", "aria-label": "Primary" },
           sections.map((s) =>
-            React.createElement("a", { key: s, href: "#" + s, onClick: (e) => goToSection(s, e) }, t("nav." + s))
+            React.createElement("a", { key: s, href: "#" + s, onClick: (e) => goToSection(s, e) }, useI18n().t("nav." + s))
           ),
-          React.createElement("a", { href: "#/docs", onClick: goDocs, className: route === "docs" ? "active" : "" }, t("nav.docs"))
+          React.createElement("a", { href: "#/docs", onClick: goDocs, className: route === "docs" ? "active" : "" }, useI18n().t("nav.docs"))
         ),
         React.createElement("div", { className: "header-right" },
           React.createElement(LangSwitch),
           React.createElement("a", { className: "icon-link", href: GH_ORG, target: "_blank", rel: "noopener noreferrer", "aria-label": "GitHub" },
-            React.createElement(window.GitHubIcon, { size: 19 })
+            React.createElement(GitHubIcon, { size: 19 })
           ),
           React.createElement("button", { className: "hamburger", onClick: () => setOpen((o) => !o), "aria-label": "Menu", "aria-expanded": open },
-            React.createElement(window.MenuIcon, { open })
+            React.createElement(MenuIcon, { open })
           )
         )
       )
     ),
     React.createElement("div", { className: "drawer" + (open ? " open" : ""), "aria-hidden": !open },
       sections.map((s) =>
-        React.createElement("a", { key: s, href: "#" + s, onClick: (e) => goToSection(s, e) }, t("nav." + s))
+        React.createElement("a", { key: s, href: "#" + s, onClick: (e) => goToSection(s, e) }, useI18n().t("nav." + s))
       ),
-      React.createElement("a", { href: "#/docs", onClick: goDocs }, t("nav.docs"))
+      React.createElement("a", { href: "#/docs", onClick: goDocs }, useI18n().t("nav.docs"))
     )
   );
 }
 
-function Footer() {
+export function Footer() {
   const { t } = useI18n();
   const year = new Date().getFullYear();
   return React.createElement("footer", { className: "footer" },
@@ -88,12 +91,10 @@ function Footer() {
       ),
       React.createElement("div", { className: "f-right" },
         React.createElement("a", { className: "icon-link", href: GH_ORG, target: "_blank", rel: "noopener noreferrer", style: { display: "inline-flex", alignItems: "center", gap: "8px", fontFamily: "var(--mono)", fontSize: "13px" } },
-          React.createElement(window.GitHubIcon, { size: 16 }), t("footer.org")
+          React.createElement(GitHubIcon, { size: 16 }), t("footer.org")
         ),
         React.createElement("span", { className: "badge" }, t("footer.license"))
       )
     )
   );
 }
-
-Object.assign(window, { Header, Footer, LangSwitch });

@@ -1,5 +1,7 @@
 // docs.jsx — Documentation page with sidebar nav + breadcrumb
-const { useI18n: useI18nD } = window;
+import React from 'react';
+import { useI18n } from './i18n.jsx';
+import { DOCS_NAV } from './data.jsx';
 
 const DOC_CONTENT = {
   "getting-started": {
@@ -59,8 +61,8 @@ function renderBlock(b, i) {
   }
 }
 
-function Docs({ navigate, anchor }) {
-  const { t } = useI18nD();
+export function Docs({ navigate, anchor }) {
+  const { t } = useI18n();
   const [active, setActive] = React.useState(anchor && DOC_CONTENT[anchor] ? anchor : "getting-started");
 
   React.useEffect(() => { window.scrollTo(0, 0); }, [active]);
@@ -78,7 +80,7 @@ function Docs({ navigate, anchor }) {
       ),
       React.createElement("div", { className: "docs-grid" },
         React.createElement("aside", { className: "docs-side" },
-          window.DOCS_NAV.map((grp) =>
+          DOCS_NAV.map((grp) =>
             React.createElement("div", { key: grp.group, className: "side-group" },
               React.createElement("div", { className: "side-title" }, t("docs.groups." + grp.group)),
               grp.items.map((it) =>
@@ -99,5 +101,3 @@ function Docs({ navigate, anchor }) {
     )
   );
 }
-
-Object.assign(window, { Docs });

@@ -1,4 +1,6 @@
 // i18n.jsx — translations + context + localStorage persistence
+import React from 'react';
+
 const TRANSLATIONS = {
   en: {
     nav: { about: "About", architecture: "Architecture", showcase: "Showcase", changelog: "Changelog", roadmap: "Roadmap", docs: "Docs", home: "Home" },
@@ -102,10 +104,10 @@ const TRANSLATIONS = {
   },
 };
 
-const LANGS = ["en", "pl"];
+export const LANGS = ["en", "pl"];
 const I18nContext = React.createContext(null);
 
-function I18nProvider({ children }) {
+export function I18nProvider({ children }) {
   const [lang, setLang] = React.useState(() => {
     const stored = localStorage.getItem("praHand3D.lang");
     return LANGS.includes(stored) ? stored : "en";
@@ -130,12 +132,12 @@ function I18nProvider({ children }) {
   return React.createElement(I18nContext.Provider, { value: { lang, setLang, t } }, children);
 }
 
-function useI18n() {
+export function useI18n() {
   return React.useContext(I18nContext);
 }
 
 // emphasis markdown (**bold**) -> spans
-function richText(str) {
+export function richText(str) {
   const parts = String(str).split(/(\*\*[^*]+\*\*)/g);
   return parts.map((p, i) => {
     if (p.startsWith("**") && p.endsWith("**")) {
@@ -144,5 +146,3 @@ function richText(str) {
     return p;
   });
 }
-
-Object.assign(window, { I18nProvider, useI18n, richText, LANGS });

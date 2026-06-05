@@ -1,5 +1,8 @@
 // hero.jsx — Hero section with animated blueprint grid canvas
-const { useI18n: useI18nHero } = window;
+import React from 'react';
+import { useI18n } from './i18n.jsx';
+import { Button, GitHubIcon, BookIcon, Crosshair, DiagGuide, DimLine } from './ui.jsx';
+import { GH_ORG } from './data.jsx';
 
 function BlueprintGrid() {
   const canvasRef = React.useRef(null);
@@ -83,8 +86,8 @@ function BlueprintGrid() {
   return React.createElement("canvas", { ref: canvasRef, "aria-hidden": true });
 }
 
-function Hero({ navigate }) {
-  const { t } = useI18nHero();
+export function Hero({ navigate }) {
+  const { t } = useI18n();
   return React.createElement("section", { className: "hero", id: "top", "data-screen-label": "Hero" },
     React.createElement(BlueprintGrid),
     React.createElement("div", { className: "hero-vignette" }),
@@ -94,10 +97,11 @@ function Hero({ navigate }) {
       React.createElement("span", { className: "cad-coord hc tr" }, "PROJ praHand3D"),
       React.createElement("span", { className: "cad-coord hc bl" }, "REV 0.3.0"),
       React.createElement("span", { className: "cad-coord hc br" }, "SHEET 01/01"),
-      React.createElement("span", { className: "hc-cross c1" }, React.createElement(window.Crosshair, { size: 20 })),
-      React.createElement("span", { className: "hc-cross c2" }, React.createElement(window.Crosshair, { size: 20 })),
-      React.createElement("span", { className: "hc-diag d1" }, React.createElement(window.DiagGuide, { w: 72, h: 72 })),
-      React.createElement("span", { className: "hc-diag d2" }, React.createElement(window.DiagGuide, { w: 72, h: 72 }))
+      React.createElement("span", { className: "hc-cross c1" }, React.createElement(Crosshair, { size: 20 })),
+      React.createElement("span", { className: "hc-cross c2" }, React.createElement(Crosshair, { size: 20 })),
+      React.createElement("span", { className: "hc-diag d1" }, React.createElement(Crosshair, { size: 20 })),
+      React.createElement("span", { className: "hc-diag d2" }, React.createElement(DiagGuide, { w: 72, h: 72 })),
+      React.createElement("span", { className: "hc-diag d3" }, React.createElement(DiagGuide, { w: 72, h: 72 }))
     ),
     React.createElement("div", { className: "hero-inner" },
       React.createElement("div", { className: "container" },
@@ -105,11 +109,11 @@ function Hero({ navigate }) {
           React.createElement("span", { className: "pulse" }), t("hero.kicker")
         ),
         React.createElement("h1", null, "pra", React.createElement("span", { className: "alt" }, "Hand"), "3D"),
-        React.createElement("div", { className: "hero-dim" }, React.createElement(window.DimLine, { label: "REAL-TIME", w: 300 })),
+        React.createElement("div", { className: "hero-dim" }, React.createElement(DimLine, { label: "REAL-TIME", w: 300 })),
         React.createElement("p", { className: "hero-sub" }, t("hero.sub")),
         React.createElement("div", { className: "hero-cta" },
-          React.createElement(window.Button, { variant: "primary", href: window.GH_ORG, external: true, icon: React.createElement(window.GitHubIcon, { size: 17 }) }, t("hero.github")),
-          React.createElement(window.Button, { variant: "ghost", href: "#/docs", onClick: (e) => { e.preventDefault(); navigate("docs"); }, icon: React.createElement(window.BookIcon) }, t("hero.docs"))
+          React.createElement(Button, { variant: "primary", href: GH_ORG, external: true, icon: React.createElement(GitHubIcon, { size: 17 }) }, t("hero.github")),
+          React.createElement(Button, { variant: "ghost", href: "#/docs", onClick: (e) => { e.preventDefault(); navigate("docs"); }, icon: React.createElement(BookIcon) }, t("hero.docs"))
         )
       )
     ),
@@ -120,4 +124,6 @@ function Hero({ navigate }) {
   );
 }
 
-Object.assign(window, { Hero, BlueprintGrid });
+export function setHeroDependencies(imports) {
+  // No longer needed
+}

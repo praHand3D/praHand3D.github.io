@@ -1,8 +1,8 @@
 // data.jsx — content data (typed shape mirrors changelog.ts / roadmap)
-const GH_ORG = "https://github.com/praHand3D";
+export const GH_ORG = "https://github.com/praHand3D";
 
 // changelog: { version, date, entries[] }[]
-const CHANGELOG = [
+export const CHANGELOG = [
   { version: "v0.3.0", date: "2026-05-18", entries: [
     "[PLACEHOLDER: glove serial driver streams 22 joints at 120Hz]",
     "[PLACEHOLDER: .PR4 animation-track chunk added to format spec]",
@@ -20,7 +20,7 @@ const CHANGELOG = [
 ];
 
 // roadmap columns
-const ROADMAP = {
+export const ROADMAP = {
   done: [
     "OpenGL render loop + scene graph",
     ".PR4 binary header & mesh chunk",
@@ -41,17 +41,17 @@ const ROADMAP = {
 };
 
 // stack badges
-const STACK = ["C++", "OpenGL", "CMake", "Python", "Blender", "GLSL"];
+export const STACK = ["C++", "OpenGL", "CMake", "Python", "Blender", "GLSL"];
 
 // architecture nodes — id maps to i18n arch.nodes.<id>; pos = center (% of schematic)
-const ARCH_NODES = [
+export const ARCH_NODES = [
   { id: "engine",    label: "praHangine",       ref: "01", repo: GH_ORG + "/praHangine",       core: true,  pos: { left: "50%", top: "13%" } },
   { id: "math",      label: "praMath",          ref: "02", repo: GH_ORG + "/praMath",          pos: { left: "26%", top: "50%" } },
   { id: "pr4",       label: "praPR4",           ref: "03", repo: GH_ORG + "/praPR4",           pos: { left: "74%", top: "50%" } },
   { id: "formatter", label: "praFormatterPR4",  ref: "04", repo: GH_ORG + "/praFormatterPR4",  pos: { left: "74%", top: "87%" } },
 ];
 
-const DOCS_NAV = [
+export const DOCS_NAV = [
   { group: "start", items: [
     { id: "getting-started", label: "Getting Started" },
     { id: "install", label: "Installation" },
@@ -65,5 +65,3 @@ const DOCS_NAV = [
     { id: "blender", label: "Blender Plugin" },
   ]},
 ];
-
-Object.assign(window, { GH_ORG, CHANGELOG, ROADMAP, STACK, ARCH_NODES, DOCS_NAV });

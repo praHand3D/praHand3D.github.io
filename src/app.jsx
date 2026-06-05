@@ -1,5 +1,11 @@
 // app.jsx — root: hash routing + mount
-const { I18nProvider, useI18n } = window;
+import React from 'react';
+import { createRoot } from 'react-dom/client';
+import { I18nProvider, useI18n } from './i18n.jsx';
+import { Header, Footer } from './chrome.jsx';
+import { Hero } from './hero.jsx';
+import { About, Architecture, Showcase, Changelog, Roadmap } from './sections.jsx';
+import { Docs } from './docs.jsx';
 
 function parseHash() {
   const h = (window.location.hash || "").replace(/^#/, "");
@@ -51,20 +57,20 @@ function App() {
   }, [state.route]);
 
   return React.createElement(React.Fragment, null,
-    React.createElement(window.Header, { route: state.route, navigate }),
+    React.createElement(Header, { route: state.route, navigate }),
     React.createElement("main", null,
       state.route === "docs"
-        ? React.createElement(window.Docs, { navigate, anchor: state.anchor })
+        ? React.createElement(Docs, { navigate, anchor: state.anchor })
         : React.createElement(React.Fragment, null,
-            React.createElement(window.Hero, { navigate }),
-            React.createElement(window.About),
-            React.createElement(window.Architecture),
-            React.createElement(window.Showcase),
-            React.createElement(window.Changelog),
-            React.createElement(window.Roadmap)
+            React.createElement(Hero, { navigate }),
+            React.createElement(About),
+            React.createElement(Architecture),
+            React.createElement(Showcase),
+            React.createElement(Changelog),
+            React.createElement(Roadmap)
           )
     ),
-    React.createElement(window.Footer)
+    React.createElement(Footer)
   );
 }
 
@@ -72,5 +78,4 @@ function Root() {
   return React.createElement(I18nProvider, null, React.createElement(App));
 }
 
-const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(React.createElement(Root));
+export default Root;
