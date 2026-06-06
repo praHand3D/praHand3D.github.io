@@ -18,6 +18,9 @@
 
 body {
   margin: 0;
+  /* Fallback background - will be overridden by styles.css */
+  background: #1e1e1e;
+  color: #f0f0f0;
 }
 
 #root {
